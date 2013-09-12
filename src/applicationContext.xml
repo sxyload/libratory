@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+ 
+	<!--- logIn -->
+ 
+	<bean id="loginAction" class="cn.net.xsoft.action.LoginAction"
+		scope="prototype">
+		<property name="loginBO">
+			<ref bean="loginBO" />
+		</property>
+	</bean>
+ 
+	<bean id="loginBO" class="cn.net.xsoft.bo.impl.LoginBOImpl" scope="prototype">
+		<property name="loginDAO">
+			<ref bean="loginDAO" />
+		</property>
+	</bean>
+ 
+	<bean id="loginDAO" class="cn.net.xsoft.dao.impl.LoginDAOImpl">
+		<property name="hibernateTemplate">
+			<ref bean="hibernateTemplate" />
+		</property>
+	</bean>
+ 
+	<bean id="hibernateTemplate" class="org.springframework.orm.hibernate3.HibernateTemplate">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+ 
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<property name="configLocation" value="classpath:hibernate.cfg.xml">
+		</property>
+	</bean>
+</beans>
